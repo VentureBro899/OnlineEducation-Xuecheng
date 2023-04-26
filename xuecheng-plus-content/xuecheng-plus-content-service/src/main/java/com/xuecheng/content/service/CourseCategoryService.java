@@ -17,4 +17,5 @@ public interface CourseCategoryService {
   * @return
   */
  public List<CourseCategoryTreeDto> queryTreeNodes(String id);
+ public List<CourseCategoryTreeDto> queryTreeNodesWithChildern(String id);
 }

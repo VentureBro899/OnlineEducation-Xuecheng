@@ -13,6 +13,8 @@
         <result column="is_leaf" property="isLeaf" />
     </resultMap>
 
+
+
     <!-- 通用查询结果列 -->
     <sql id="Base_Column_List">
         id, name, label, parentid, is_show, orderby, is_leaf
@@ -29,5 +31,22 @@
         order by t1.id
 
     </select>
+
+
+    <resultMap id="BaseResultMapWithChildren" type="com.xuecheng.content.model.dto.CourseCategoryTreeDto">
+        <id column="id" property="id" />
+        <result column="name" property="name" />
+        <result column="label" property="label" />
+        <result column="parentid" property="parentid" />
+        <result column="is_show" property="isShow" />
+        <result column="orderby" property="orderby" />
+        <result column="is_leaf" property="isLeaf" />
+        <collection column="id" property="childrenTreeNodes" ofType="com.xuecheng.content.model.dto.CourseCategoryTreeDto" javaType="ArrayList" select="selectTreeNodesWithChildren"></collection>
+    </resultMap>
+
+    <select id="selectTreeNodesWithChildren" parameterType="string" resultMap="BaseResultMapWithChildren">
+        select * from course_category where parentid = #{id};
+    </select>
+
 
 </mapper>

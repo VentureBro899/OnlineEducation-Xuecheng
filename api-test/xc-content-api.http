@@ -16,6 +16,7 @@ POST {{content_host}}/content/course
 Content-Type: application/json
 
 {
+  "name": "测试课程",
   "charge": "201001",
   "price": 10,
   "originalPrice":100,
@@ -25,11 +26,10 @@ Content-Type: application/json
   "validDays": 365,
   "mt": "1-1",
   "st": "1-1-1",
-  "name": "",
   "pic": "fdsf",
   "teachmode": "200002",
   "users": "初级人员",
-  "tags": "tagstagstags",
+  "tags": "你猜",
   "grade": "204001",
   "description": "java网络编程高级java网络编程高级java网络编程高级"
 }
