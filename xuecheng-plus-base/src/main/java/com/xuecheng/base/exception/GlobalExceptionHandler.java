@@ -1,21 +1,42 @@
 package com.xuecheng.base.exception;
 
 import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.http.HttpStatus;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.MethodArgumentNotValidException;
+import org.springframework.web.bind.annotation.ControllerAdvice;
+import org.springframework.web.bind.annotation.ExceptionHandler;
+import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.ResponseStatus;
 
-/**
- * @author Mr.M
- * @version 1.0
- * @description TODO
- * @date 2023/2/12 17:01
- */
+import java.util.ArrayList;
+import java.util.List;
+
+
 @Slf4j
 @ControllerAdvice
 //@RestControllerAdvice
 public class GlobalExceptionHandler {
 
- //对项目的自定义异常类型进行处理
+    @ResponseBody
+    @ExceptionHandler(MethodArgumentNotValidException.class)
+    @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
+    public RestErrorResponse methodParaNotValidException(MethodArgumentNotValidException e){
+        BindingResult bindingResult = e.getBindingResult();
+        List<String> msgList = new ArrayList<>();// 存放错误信息的集合
+        //将错误信息放在msgList
+        bindingResult.getFieldErrors().stream().forEach(item->msgList.add(item.getDefaultMessage()));
+        //拼接错误信息
+        String msg = StringUtils.join(msgList, ",");
+        log.error("【系统异常】{}",msg);
+        return new RestErrorResponse(msg);
+
+    }
+
+
+
+    //对项目的自定义异常类型进行处理
    @ResponseBody
    @ExceptionHandler(XueChengPlusException.class)
    @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
