@@ -1,19 +1,17 @@
 package com.xuecheng.content.service.impl;
 
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.xuecheng.base.exception.XueChengPlusException;
 import com.xuecheng.base.model.PageParams;
 import com.xuecheng.base.model.PageResult;
-import com.xuecheng.content.mapper.CourseBaseMapper;
-import com.xuecheng.content.mapper.CourseCategoryMapper;
-import com.xuecheng.content.mapper.CourseMarketMapper;
+import com.xuecheng.content.mapper.*;
 import com.xuecheng.content.model.dto.AddCourseDto;
 import com.xuecheng.content.model.dto.CourseBaseInfoDto;
 import com.xuecheng.content.model.dto.EditCourseDto;
 import com.xuecheng.content.model.dto.QueryCourseParamsDto;
-import com.xuecheng.content.model.po.CourseBase;
-import com.xuecheng.content.model.po.CourseMarket;
+import com.xuecheng.content.model.po.*;
 import com.xuecheng.content.service.CourseBaseInfoService;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
@@ -25,12 +23,7 @@ import org.springframework.transaction.annotation.Transactional;
 import java.time.LocalDateTime;
 import java.util.List;
 
-/**
- * @author Mr.M
- * @version 1.0
- * @description
- * @date 2023/2/12 10:16
- */
+
 @Slf4j
 @Service
 public class CourseBaseInfoServiceImpl implements CourseBaseInfoService {
@@ -41,7 +34,19 @@ public class CourseBaseInfoServiceImpl implements CourseBaseInfoService {
     CourseMarketMapper courseMarketMapper;
 
     @Autowired
+    CourseTeacherMapper courseTeacherMapper;
+
+
+    @Autowired
+    TeachplanMapper teachplanMapper;
+
+    @Autowired
     CourseCategoryMapper courseCategoryMapper;
+
+    @Autowired
+    TeachplanMediaMapper teachplanMediaMapper;
+
+
 
     @Override
     public PageResult<CourseBase> queryCourseBaseList(PageParams pageParams, QueryCourseParamsDto courseParamsDto) {
@@ -195,6 +200,34 @@ public class CourseBaseInfoServiceImpl implements CourseBaseInfoService {
         //查询课程信息
         CourseBaseInfoDto courseBaseInfo = this.getCourseBaseInfo(courseId);
         return courseBaseInfo;
+    }
+
+    @Override
+    public void deleteCourseBase(Long companyId, Long courseid) {
+        CourseBase courseBase = courseBaseMapper.selectById(courseid);
+        //校验本机构只能修改本机构的课程
+        if(!courseBase.getCompanyId().equals(companyId)){
+            XueChengPlusException.cast("不能删除其他机构的课程");
+        }
+
+        //
+        if(!courseBase.getAuditStatus().equals("202002")){
+            XueChengPlusException.cast("课程审核状态为未提交时才能删除");
+        }
+        courseBaseMapper.deleteById(courseid);
+        courseMarketMapper.deleteById(courseid);
+
+        QueryWrapper<CourseTeacher> ctqw = new QueryWrapper<>();
+        QueryWrapper<Teachplan> tqw = new QueryWrapper<>();
+        QueryWrapper<TeachplanMedia> tmqw = new QueryWrapper<>();
+        ctqw.eq("course_id",courseid);
+        tqw.eq("course_id",courseid);
+        tmqw.eq("course_id",courseid);
+        courseTeacherMapper.delete(ctqw);
+        teachplanMapper.delete(tqw);
+        teachplanMediaMapper.delete(tmqw);
+
+
     }
 
     //单独写一个方法保存营销信息，逻辑：存在则更新，不存在则添加

@@ -12,12 +12,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
-/**
- * @author Mr.M
- * @version 1.0
- * @description TODO
- * @date 2023/2/12 14:49
- */
+
 @Slf4j
 @Service
 public class CourseCategoryServiceImpl implements CourseCategoryService {

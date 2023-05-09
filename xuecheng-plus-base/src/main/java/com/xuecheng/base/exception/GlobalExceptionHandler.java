@@ -53,6 +53,7 @@ public class GlobalExceptionHandler {
    }
 
 
+
    @ResponseBody
    @ExceptionHandler(Exception.class)
    @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)

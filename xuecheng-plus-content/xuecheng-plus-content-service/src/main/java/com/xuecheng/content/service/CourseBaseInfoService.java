@@ -44,4 +44,15 @@ public interface CourseBaseInfoService {
 
     public CourseBaseInfoDto UpdateCourseBaseInfo(Long companyId, EditCourseDto dto);
 
+    /**
+     * 删除课程信息,包括课程相关的基本信息、营销信息、课程计划、课程教师信息
+     *
+     * @param companyId
+     * @param courseid
+     * @author venture
+     * @creed: Nothing Ventured,nothing gained
+     * @date 2023-05-09 17:10
+     */
+
+    void deleteCourseBase(Long companyId, Long courseid);
 }

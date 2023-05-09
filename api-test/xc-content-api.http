@@ -62,3 +62,29 @@ Content-Type: application/json
 
 GET {{content_host}}/content/teachplan/74/tree-nodes
 
+
+### 新增教师
+
+POST {{content_host}}/content/courseTeacher
+Content-Type: application/json
+
+{
+    "courseId": 2,
+    "teacherName": "臣在及",
+    "position": "讲师",
+    "introduction": ""
+}
+
+### 修改教师信息
+PUT {{content_host}}/content/courseTeacher
+Content-Type: application/json
+
+{
+  "id": 27,
+  "courseId": 2,
+  "teacherName": "陈帅吖",
+  "position": "讲师",
+  "introduction": "",
+  "photograph": null,
+  "createDate": null
+}
