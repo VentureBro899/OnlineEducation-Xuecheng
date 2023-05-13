@@ -6,18 +6,24 @@ package com.xuecheng.content.model.dto;
  * @date: 2023-05-04 17:38
  */
 
+import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
+
+import javax.validation.constraints.NotEmpty;
 
 @Data
 public class SaveTeachplanDto {
     /***
      * 教学计划id
      */
+
+    @ApiModelProperty(value = "课程id")
     private Long id;
 
     /**
      * 课程计划名称
      */
+    @NotEmpty
     private String pname;
 
     /**

@@ -17,5 +17,12 @@ public interface CourseCategoryService {
   * @return
   */
  public List<CourseCategoryTreeDto> queryTreeNodes(String id);
+
+ /**
+  * 使用子查询实现，速度较慢
+  * @param id
+  * @return java.util.List<com.xuecheng.content.model.dto.CourseCategoryTreeDto>
+  */
+
  public List<CourseCategoryTreeDto> queryTreeNodesWithChildern(String id);
 }

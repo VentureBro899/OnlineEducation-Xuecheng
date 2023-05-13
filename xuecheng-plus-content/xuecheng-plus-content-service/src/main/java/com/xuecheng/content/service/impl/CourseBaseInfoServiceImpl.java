@@ -202,6 +202,7 @@ public class CourseBaseInfoServiceImpl implements CourseBaseInfoService {
         return courseBaseInfo;
     }
 
+    @Transactional
     @Override
     public void deleteCourseBase(Long companyId, Long courseid) {
         CourseBase courseBase = courseBaseMapper.selectById(courseid);
