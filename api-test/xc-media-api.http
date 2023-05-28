@@ -1,0 +1,9 @@
+### 上传文件
+POST {{media_host}}/media/upload/coursefile
+Content-Type: multipart/form-data; boundary=WebAppBoundary
+
+--WebAppBoundary
+Content-Disposition: form-data; name="filedata"; filename="2.png"
+Content-Type: application/octet-stream
+
+< E:\网课学习笔记\md笔记\VentureScreenshot\1653365145124.png

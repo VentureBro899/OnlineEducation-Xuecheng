@@ -10,7 +10,9 @@
         <!--基于当前pom.xml找到父工程-->
         <relativePath>../xuecheng-plus-parent</relativePath>
     </parent>
+    <groupId>com.xuecheng</groupId>
     <artifactId>xuecheng-plus-base</artifactId>
+    <version>0.0.1-SNAPSHOT</version>
     <dependencies>
         <dependency>
             <groupId>org.projectlombok</groupId>
