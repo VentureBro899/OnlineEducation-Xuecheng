@@ -37,7 +37,7 @@ public interface MediaFileService {
      * @param localFilePath 文件磁盘路径
      * @return 文件信息
      */
-    public UploadFileResultDto uploadFile(Long companyId, UploadFileParamsDto uploadFileParamsDto, String localFilePath);
+    public UploadFileResultDto uploadFile(Long companyId, UploadFileParamsDto uploadFileParamsDto, String localFilePath,String objectName);
 
 
     /**
@@ -100,4 +100,14 @@ public interface MediaFileService {
     @Autowired
     public boolean uploadFileToMinio(String bucketName,String localFilePath,String objectName,String mineType);
 
+    /**
+     * 通过媒资id获取妹子文件
+     * @param mediaId 媒资id
+     * @return com.xuecheng.media.model.po.MediaFiles
+     * @author venture
+     * @creed: Nothing Ventured,nothing gained
+     * @date 2023-05-31 13:08
+     */
+
+    MediaFiles getFileById(String mediaId);
 }

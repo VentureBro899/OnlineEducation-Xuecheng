@@ -89,3 +89,5 @@ Content-Type: application/json
   "createDate": null
 }
 
+### 发布课程
+POST {{content_host}}/content/coursepublish/1

@@ -22,6 +22,7 @@ import io.minio.messages.DeleteObject;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.codec.digest.DigestUtils;
 import org.apache.commons.io.IOUtils;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -85,8 +86,9 @@ public class MediaFileServiceImpl implements MediaFileService {
 
     }
 
+    // 上传小文件
     @Override
-    public UploadFileResultDto uploadFile(Long companyId, UploadFileParamsDto uploadFileParamsDto, String localFilePath) {
+    public UploadFileResultDto uploadFile(Long companyId, UploadFileParamsDto uploadFileParamsDto, String localFilePath,String objectName) {
         File file = new File(localFilePath);
         if (!file.exists()) {
             XueChengPlusException.cast("文件不存在");
@@ -104,7 +106,8 @@ public class MediaFileServiceImpl implements MediaFileService {
         // 默认文件夹
         String defaultFolderPath = getDefaultFolderPath();
         // 对象名为文件夹+md5值+扩展名的形式
-        String objectName =  defaultFolderPath + "/" + fileMd5 + extension;
+        if (StringUtils.isBlank(objectName))
+            objectName =  defaultFolderPath + "/" + fileMd5 + extension;
         // 文件mine类型
         String mineType = getMimeType(extension);
         // 将文件上传到分布式文件系统
@@ -419,6 +422,12 @@ public class MediaFileServiceImpl implements MediaFileService {
             XueChengPlusException.cast("上传文件到文件系统失败");
             return false;
         }
+    }
+
+    @Override
+    public MediaFiles getFileById(String mediaId) {
+        MediaFiles mediaFiles = mediaFilesMapper.selectById(mediaId);
+        return mediaFiles;
     }
 
     public boolean uploadFileToMinio(byte[] bytes, String bucketName,String chunkFilePath){

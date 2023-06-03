@@ -1,5 +1,6 @@
 package com.xuecheng.content.api;
 
+import com.xuecheng.content.model.dto.BindTeachplanMediaDto;
 import com.xuecheng.content.model.dto.SaveTeachplanDto;
 import com.xuecheng.content.model.dto.TeachplanDto;
 import com.xuecheng.content.service.TeachPlanService;
@@ -20,6 +21,7 @@ import java.util.List;
 public class TechPlanController {
     @Autowired
     TeachPlanService teachPlanService;
+
 
     @ApiOperation("查询课程计划树形结构")
     @ApiImplicitParam(value = "courseId",name = "课程Id",required = true,dataType = "Long",paramType = "path")
@@ -51,6 +53,19 @@ public class TechPlanController {
     @PostMapping("/moveup/{id}")
     public void moveup( @PathVariable Long id){
         teachPlanService.moveup(id);
+    }
+
+    @ApiOperation(value = "课程计划和媒资信息绑定")
+    @PostMapping("/association/media")
+    public void associationMedia(@RequestBody BindTeachplanMediaDto bindTeachplanMediaDto){
+        teachPlanService.associationMedia(bindTeachplanMediaDto);
+    }
+
+
+    @ApiOperation(value = "课程计划和媒资信息解绑")
+    @DeleteMapping("/association/media/{teachPlanId}/{mediaId}")
+    public void deBind(@PathVariable Long teachPlanId,@PathVariable String mediaId){
+        teachPlanService.deBind(teachPlanId,mediaId);
     }
 
 }

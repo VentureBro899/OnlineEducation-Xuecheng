@@ -37,7 +37,7 @@ public class MediaFilesController {
         Long companyId = 1232141425L;
         return mediaFileService.queryMediaFiels(companyId,pageParams,queryMediaParamsDto);
     }
-    @ApiOperation("上传图片")
+    @ApiOperation("上传小文件")
     @RequestMapping(value = "/upload/coursefile",consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
     public UploadFileResultDto upload( MultipartFile filedata,
                                       @RequestParam(value = "folder",required=false) String folder,
@@ -61,7 +61,7 @@ public class MediaFilesController {
         Resource resource = filedata.getResource();
         System.out.println(resource);
         //上传文件
-        UploadFileResultDto uploadFileResultDto = mediaFileService.uploadFile(companyId, uploadFileParamsDto, absolutePath);
+        UploadFileResultDto uploadFileResultDto = mediaFileService.uploadFile(companyId, uploadFileParamsDto, absolutePath,objectName);
         return uploadFileResultDto;
 
     }
