@@ -16,5 +16,4 @@ import org.springframework.web.multipart.MultipartFile;
 public interface MediaServiceClient {
     @RequestMapping(value = "/media/upload/coursefile",consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
     String uploadFile(@RequestPart("filedata") MultipartFile upload, @RequestParam(value = "objectName",required=false) String objectName);
-
 }
