@@ -1,0 +1,13 @@
+#get token by code
+POST {{auth_host}}/auth/oauth/token?client_id=XcWebApp&client_secret=XcWebApp&grant_type=authorization_code&code=16qqE6&redirect_uri=http://www.51xuecheng.cn
+
+
+### 密码模式
+POST {{auth_host}}/auth/oauth/token?client_id=XcWebApp&client_secret=XcWebApp&grant_type=password&username=t1&password=111111
+
+### 校验令牌
+POST {{auth_host}}/auth/oauth/check_token?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhdWQiOlsieHVlY2hlbmctcGx1cyJdLCJ1c2VyX25hbWUiOiJ6aGFuZ3NhbiIsInNjb3BlIjpbImFsbCJdLCJleHAiOjE2ODY3MTM0NjEsImF1dGhvcml0aWVzIjpbInAxIl0sImp0aSI6IjA4ZjExZDFhLTY3MGQtNGQ1OS05MDNiLWVjN2Y4NjBiZWYyNCIsImNsaWVudF9pZCI6IlhjV2ViQXBwIn0.1RpdhjTcnS0IX-V5MECPUwMn2MZcdJHE14eyZzIFrSQ
+
+################扩展认证请求参数后######################
+###密码模式
+POST {{auth_host}}/auth/oauth/token?client_id=XcWebApp&client_secret=XcWebApp&grant_type=password&username={"username":"stu1","authType":"password","password":"1111121"}
