@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.xuecheng.user.mapper.OauthApprovalsMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.xuecheng.user.model.po.OauthApprovals">
+        <result column="userId" property="userid" />
+        <result column="clientId" property="clientid" />
+        <result column="scope" property="scope" />
+        <result column="status" property="status" />
+        <result column="expiresAt" property="expiresat" />
+        <result column="lastModifiedAt" property="lastmodifiedat" />
+    </resultMap>
+
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+        userId, clientId, scope, status, expiresAt, lastModifiedAt
+    </sql>
+
+</mapper>
