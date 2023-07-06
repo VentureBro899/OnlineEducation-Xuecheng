@@ -16,14 +16,20 @@ import java.util.Arrays;
 public class UcenterCodeGenerator {
 
 	// TODO 修改服务名以及数据表名
-	private static final String SERVICE_NAME = "ucenter";
+	private static final String SERVICE_NAME = "user";
 
 	//数据库账号
 	private static final String DATA_SOURCE_USER_NAME  = "root";
 	//数据库密码
-	private static final String DATA_SOURCE_PASSWORD  = "mysql";
+	private static final String DATA_SOURCE_PASSWORD  = "123456";
 	//生成的表
 	private static final String[] TABLE_NAMES = new String[]{
+			"oauth_access_token",
+			"oauth_approvals",
+			"oauth_client_details",
+			"oauth_client_token",
+			"oauth_code",
+			"oauth_refresh_token",
 			"xc_company",
 			"xc_company_user",
 			"xc_menu",
@@ -48,7 +54,7 @@ public class UcenterCodeGenerator {
 		gc.setFileOverride(true);
 		//生成路径
 		gc.setOutputDir(System.getProperty("user.dir") + "/xuecheng-plus-generator/src/main/java");
-		gc.setAuthor("itcast");
+		gc.setAuthor("venture");
 		gc.setOpen(false);
 		gc.setSwagger2(false);
 		gc.setServiceName("%sService");
@@ -64,7 +70,7 @@ public class UcenterCodeGenerator {
 		// 数据库配置
 		DataSourceConfig dsc = new DataSourceConfig();
 		dsc.setDbType(DbType.MYSQL);
-		dsc.setUrl("jdbc:mysql://192.168.101.65:3306/xcplus_users"
+		dsc.setUrl("jdbc:mysql:///xc_user"
 				+ "?serverTimezone=UTC&useUnicode=true&useSSL=false&characterEncoding=utf8");
 //		dsc.setDriverName("com.mysql.jdbc.Driver");
 		dsc.setDriverName("com.mysql.cj.jdbc.Driver");
