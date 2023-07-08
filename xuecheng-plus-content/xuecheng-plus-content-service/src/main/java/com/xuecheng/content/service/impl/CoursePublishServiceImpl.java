@@ -232,6 +232,11 @@ public class CoursePublishServiceImpl implements CoursePublishService {
         }
     }
 
+    @Override
+    public CoursePublish getCoursePublish(Long courseId) {
+        return coursePublishMapper.selectById(courseId);
+    }
+
     private void saveCoursePublishMessage(Long courseId) {
         MqMessage mqMessage = mqMessageService.addMessage("course_publish", String.valueOf(courseId), null, null);
         if(mqMessage==null){
@@ -249,7 +254,8 @@ public class CoursePublishServiceImpl implements CoursePublishService {
      * @date 2023-06-01 17:40
      */
 
-    private void saveCoursePublish(CoursePublishPre coursePublishPre) {
+    @Transactional
+    public void saveCoursePublish(CoursePublishPre coursePublishPre) {
         Long courseId = coursePublishPre.getId();
         CoursePublish coursePublish = new CoursePublish();
         BeanUtils.copyProperties(coursePublishPre,coursePublish);
